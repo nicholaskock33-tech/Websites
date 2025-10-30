@@ -311,22 +311,22 @@
                 <!-- Contact Form -->
                 <div class="bg-green-50 p-8 rounded-lg">
                     <h3 class="text-2xl font-bold text-green-800 mb-6">Request a Quote</h3>
-                    <form class="space-y-4">
+                    <form id="quote-form" class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                            <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Your name">
+                            <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Your name">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                            <input type="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="your@email.com">
+                            <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="your@email.com">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
-                            <input type="tel" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="069 138 6866">
+                            <input type="tel" id="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="069 138 6866">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Service Needed</label>
-                            <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            <select id="service" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
                                 <option>Select a service</option>
                                 <option>Lawn Installation</option>
                                 <option>Lawn Maintenance</option>
@@ -342,7 +342,7 @@
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                            <textarea rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Tell us about your project..."></textarea>
+                            <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Tell us about your project..."></textarea>
                         </div>
                         <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">
                             Send Message
@@ -387,27 +387,36 @@
             });
         });
 
-        // Form submission handling
-        document.querySelector('form').addEventListener('submit', function(e) {
+        // Form submission handling - now opens email client
+        document.getElementById('quote-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Thank you for your message! We will contact you soon.');
+            
+            // Get form values
+            const name = document.getElementById('name').value || 'Not provided';
+            const email = document.getElementById('email').value || 'Not provided';
+            const phone = document.getElementById('phone').value || 'Not provided';
+            const service = document.getElementById('service').value || 'Not provided';
+            const message = document.getElementById('message').value || 'Not provided';
+            
+            // Create email body with form data
+            const emailBody = `Quote Request Details:
+            
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Service Needed: ${service}
+Message: ${message}`;
+            
+            // Create mailto link with subject and body
+            const mailtoLink = `mailto:edenicland2022@gmail.com?subject=Quote Request from Website&body=${encodeURIComponent(emailBody)}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            // Reset form
             this.reset();
         });
     </script>
 </body>
 </html>
 
-   <div class="flex items-start gap-4">
-       <div class="bg-green-100 p-3 rounded-full">
-           <i class="fas fa-envelope text-green-600 text-xl"></i>
-       </div>
-       <div>
-           <h3 class="text-lg font-semibold text-gray-800">Email</h3>
-           <p class="text-gray-600"><a href="mailto:edenicland2022@gmail.com" class="text-green-600 hover:underline">edenicland2022@gmail.com</a></p>
-       </div>
-   </div>
-   
-   <p class="mt-2">
-       <a href="mailto:edenicland2022@gmail.com" class="text-green-300 hover:text-white underline">edenicland2022@gmail.com</a>
-   </p>
-   
